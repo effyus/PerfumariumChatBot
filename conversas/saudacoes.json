@@ -1,0 +1,20 @@
+{
+    "conversas": [
+        {
+            "mensagens": ["oi", "olá", "tudo bem?", "como vai?", "ola"],
+            "resposta": "Olá, sou o perfumarium, qual a sua duvida?"
+        },
+        {
+            "mensagens": ["boa tarde"],
+            "resposta": "Boa tarde, sou o perfumarium, qual a sua duvida?"
+        },
+        {
+            "mensagens": ["boa noite"],
+            "resposta": "Boa noite, sou o perfumarium, qual a sua duvida?"
+        },
+        {
+            "mensagens": ["bom dia", "Bom dia"],
+            "resposta": "Bom dia, sou o perfumarium, qual a sua duvida?"
+        }
+    ]
+}

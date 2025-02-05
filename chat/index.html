@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PERFUMARIUM</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  
+  body {
+      font: 16px Helvetica, Arial;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+  }
+  
+  .chat-container {
+      background: white;
+      padding: 20px;
+      width: 1000px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+  }
+  
+  ul {
+      list-style-type: none;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 15px;
+  }
+  
+  li {
+      padding: 10px;
+      border-radius: 8px;
+      margin: 5px 0;
+  }
+  
+  li:nth-child(odd) {
+      background: #f7dff5;
+  }
+  
+  li:nth-child(even) {
+      background: #e3f2fd;
+  }
+  
+  form {
+      display: flex;
+      gap: 10px;
+  }
+  
+  input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+  }
+  
+  button {
+      background: #e445d7;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+  }
+  
+  button:hover {
+      background: #920c87;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div class="chat-container">
+    <ul id="messages"></ul> <!--Exibe as mensagens-->
+    <form action="">
+      <input id="m" autocomplete="off" placeholder="Digite sua mensagem..." />
+      <!-- campo onde o usuario digita a mensagem-->
+      <button>Enviar</button>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script> <!-- Importa em tempo real -->
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script> <!-- manipula a interface-->
+
+  <!-- Captura e envia mensagem-->
+  <script>
+    $(function () {
+      var socket = io(); //conecta com o servidor
+
+      //captura o envio do formulario
+      $('form').submit(function () {
+        socket.emit('chat message', $('#m').val()); //mensagem enviada ao servidor
+        $('#m').val(''); //o campo de entrada limpo
+        return false;
+      });
+      socket.on('chat message', function (msg) {
+        //mostra as mensagens mais recentes e adiciona as mensagens a uma lista
+        $('#messages').append($('<li>').text(msg));
+        $('#messages').scrollTop($('#messages')[0].scrollHeight);
+        $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
